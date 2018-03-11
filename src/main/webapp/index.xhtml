@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html" encoding="UTF-8">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><h:outputText value="ZEDAS" /></title>
+    </h:head>
+    <h:body>
+
+        <div class="ui-g">
+            <p:growl id="messages"/>
+
+            <div class="ui-g-12 ui-md-2">
+                <p:panel header="New note">
+                    <h:form id="notesForm">
+                        <div>
+                            <p:outputLabel value="Text" for="note"/>
+                            <p:inputTextarea id="note" rows="5" style="width: 100%"
+                                             value="#{noteManagedBean.newNote.text}"/>
+                        </div>
+                        <br/>
+                        <div>
+                            <p:commandButton id="submitButton"
+                                             value="Create note"
+                                             actionListener="#{noteManagedBean.createNewNote}"
+                                             styleClass="submit"
+                                             update="note noteTable messages">
+                            </p:commandButton>
+                        </div>
+                    </h:form>
+                </p:panel>
+            </div>
+
+            <div class="ui-g">
+                <div class="ui-g-12 ui-md-8">
+                    <p:panel header="All notes">
+                        <p:dataTable id="noteTable" var="note"
+                                     value="#{noteManagedBean.notes}"
+                                     headerClass="headers" frame="box"
+                                     style="width: 100%">
+
+                            <p:column headerText="Id">
+                                <h:outputText value="#{note.id}"/>
+                            </p:column>
+                            <p:column headerText="Creation date">
+                                <h:outputText value="#{note.creationDate}">
+                                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Text">
+                                <h:outputText value="#{note.text}"/>
+                            </p:column>
+                            <p:column headerText="" width="45">
+                                <p:commandButton icon="ui-icon-trash"
+                                                 partialSubmit="true" ajax="true"
+                                                 title="Delete"
+                                                 update="noteTable messages"
+                                                 actionListener="#{noteManagedBean.deleteNote(note.id)}">
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</f:view>
+</html>

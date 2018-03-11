@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="zedas:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="zedas.war">
+      <element id="artifact" artifact-name="zedas:war exploded" />
+    </root>
+  </artifact>
+</component>
